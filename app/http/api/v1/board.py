@@ -1,5 +1,7 @@
 from flask import request
 
+from app.core.exceptions import InvalidRequestException
+
 from app.http.api import api
 from app.http.requests.board.create_board import CreateBoardRequestObject
 
@@ -12,9 +14,11 @@ def get_board():
 def create_board():
     # 1. request 데이터를 파싱
     req = CreateBoardRequestObject.from_dict(a_dict=request.json)
+    if not req:
+        raise InvalidRequestException
     # 2. 유즈케이스 실행 (dto)
     # 3. 프리젠터 실행
-    return req
+    return request.json
 
 
 @api.route("/board", methods=["DELETE"])
