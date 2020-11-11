@@ -1,5 +1,5 @@
 from app.core.dto.board import CreateBoardDto
-from app.core.usecases.base import BaseUseCase
+from app.core.use_cases.base import BaseUseCase
 
 
 class CreateBoardUseCase(BaseUseCase):
