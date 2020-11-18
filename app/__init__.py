@@ -1,6 +1,7 @@
 from flask import Flask, Blueprint
 from app.config import config
 from app.http.api import api as api_bp
+from app.extensions.provider import init_provider
 
 main = Blueprint("main", __name__)
 
@@ -21,5 +22,6 @@ def create_app(config_name="default"):
 
     with app.app_context():
         init_blueprint(app)
+        init_provider(app)
 
     return app
