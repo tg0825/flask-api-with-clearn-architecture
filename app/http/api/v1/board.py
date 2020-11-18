@@ -18,11 +18,14 @@ def get_board():
 @api.route("/board", methods=["POST"])
 def create_board():
     req = CreateBoardRequestObject.from_dict(a_dict=request.json)
+
     if not req:
         raise InvalidRequestException(req.get_error_msg(), HTTPStatus.BAD_REQUEST)
+
     dto = CreateBoardDto(
         **req.to_dict()
     )
+
     result = CreateBoardUseCase().execute(dto)
 
     if not result:
