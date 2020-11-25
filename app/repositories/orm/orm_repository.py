@@ -9,7 +9,6 @@ class BoardRepository:
     def create_board(self, dto: CreateBoardDto = None) -> Board:
         board = BoardModels(
             title=dto.title,
-            text=dto.text,
             body=dto.body,
             user_id=dto.user_id,
             is_deleted=False
