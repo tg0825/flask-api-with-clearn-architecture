@@ -14,4 +14,9 @@ class CreateBoardUseCase(BaseUseCase):
         # if not dto.title:
         #     return
 
+        if not dto.user_id:
+            return UseCaseFailureOutput()
+
         board = self.board_repo.create_board(dto=dto)
+
+        return UseCaseSuccessOutput(value=board)
