@@ -10,9 +10,13 @@ class CreateBoardRequestObject:
         VOptional("body"): str,
     })
 
-    def __init__(self, text: str = None):
-        self.text: str = text
-        pass
+    def __init__(
+            self,
+            title: str = None,
+            body: str = None,
+    ):
+        self.title: str = title
+        self.body: str = body
 
     @classmethod
     def from_dict(cls, a_dict: Optional[Dict]):
@@ -24,5 +28,6 @@ class CreateBoardRequestObject:
 
     def to_dict(self):
         return dict(
-            text=self.text
+            title=self.title,
+            body=self.body
         )
