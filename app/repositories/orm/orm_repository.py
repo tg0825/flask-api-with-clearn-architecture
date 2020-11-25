@@ -1,4 +1,5 @@
 from app.core.dto.board import CreateBoardDto
+from app.data.sqla_models.models import BoardModels
 
 
 class BoardRepository:
