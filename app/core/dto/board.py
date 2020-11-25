@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 
+
 @dataclass
 class CreateBoardDto:
-    text: str = None
     title: str = None
+    body: str = None
     user_id: int = None
