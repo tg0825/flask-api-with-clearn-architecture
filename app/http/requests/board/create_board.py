@@ -1,12 +1,13 @@
 from typing import Optional, Dict
-from voluptuous import Schema, All, Length, Required, MultipleInvalid
+from voluptuous import Schema, All, Length, Required, Optional as VOptional, MultipleInvalid
 
 from app.http.requests import InvalidRequestObject
 
 
 class CreateBoardRequestObject:
     schema = Schema({
-        Required('text'): All(str, Length(max=3000))
+        Required('title'): str,
+        VOptional("body"): str,
     })
 
     def __init__(self, text: str = None):
