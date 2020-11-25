@@ -6,7 +6,9 @@ class BoardModels(db.Model):
     __tablename__ = 'board'
 
     id = db.Column(
-        primary_key=True
+        db.Integer,
+        primary_key=True,
+        autoincrement=True
     )
     title = db.Column()
     body = db.Column()
