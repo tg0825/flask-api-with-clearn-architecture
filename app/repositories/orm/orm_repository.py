@@ -2,6 +2,8 @@ from app.core.dto.board import CreateBoardDto
 from app.data.sqla_models.models import BoardModels
 from app.core.domain.board import Board
 
+from app.extensions.database import session
+
 
 class BoardRepository:
     def create_board(self, dto: CreateBoardDto = None) -> Board:
