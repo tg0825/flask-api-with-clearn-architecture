@@ -5,6 +5,8 @@ from app.core.use_cases.base import BaseUseCase
 
 from app.core.use_case_outputs import UseCaseSuccessOutput, UseCaseFailureOutput
 
+from app.core.exceptions import NotFoundException
+
 
 class CreateBoardUseCase(BaseUseCase):
     def execute(
@@ -15,7 +17,7 @@ class CreateBoardUseCase(BaseUseCase):
         #     return
 
         if not dto.user_id:
-            return UseCaseFailureOutput()
+            return UseCaseFailureOutput(NotFoundException())
 
         board = self.board_repo.create_board(dto=dto)
 
