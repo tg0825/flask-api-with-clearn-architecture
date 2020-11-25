@@ -1,5 +1,6 @@
 from app.core.dto.board import CreateBoardDto
 from app.data.sqla_models.models import BoardModels
+from app.core.domain.board import Board
 
 
 class BoardRepository:
@@ -7,6 +8,7 @@ class BoardRepository:
         board = BoardModels(
             title=dto.title,
             text=dto.text,
+            body=dto.body,
             user_id=dto.user_id,
             is_deleted=False
         )
