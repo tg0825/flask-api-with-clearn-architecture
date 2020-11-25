@@ -1,7 +1,7 @@
 from typing import Dict
 
 
-class UseCaseFailerOutput:
+class UseCaseFailureOutput:
     def __init__(self, type: str, message: str = None) -> None:
         self.type = type
         self.message = self._format_message(message if message is not None else type)
@@ -20,3 +20,16 @@ class UseCaseFailerOutput:
 
     def __bool__(self) -> bool:
         return False
+
+
+class UseCaseSuccessOutput:
+    SUCCESS = "Success"
+
+    def __init__(self, value=None, meta=None):
+        self.type = self.SUCCESS
+        self.value = value
+        self.meta = meta
+
+    # 해당 클래스를 bool로 채크할 경우에 대응하는 메서드
+    def __bool__(self):
+        return True
