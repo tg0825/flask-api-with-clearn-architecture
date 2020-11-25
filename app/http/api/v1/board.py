@@ -10,6 +10,7 @@ from app.core.use_cases.create_board import CreateBoardUseCase
 
 from app.core.dto.board import CreateBoardDto
 
+
 @api.route("/board")
 def get_board():
     return "get board"
