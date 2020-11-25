@@ -1,7 +1,13 @@
-class BoardRepository:
-    def create_board(self, dto: CreateDto = None) -> Board:
-        board = BoardModles(
+from app.core.dto.board import CreateBoardDto
 
+
+class BoardRepository:
+    def create_board(self, dto: CreateBoardDto = None) -> Board:
+        board = BoardModels(
+            title=dto.title,
+            text=dto.text,
+            user_id=dto.user_id,
+            is_deleted=False
         )
 
         session.add(board)
