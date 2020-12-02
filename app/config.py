@@ -15,5 +15,4 @@ class LocalConfig:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
-
 config = {"default": LocalConfig}
