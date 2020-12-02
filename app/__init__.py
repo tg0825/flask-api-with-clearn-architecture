@@ -1,6 +1,8 @@
 from flask import Flask, Blueprint
 from app.config import config
 from app.http.api import api as api_bp
+from app.extensions.provider import init_provider
+from app.extensions.database import db
 
 main = Blueprint("main", __name__)
 
@@ -8,6 +10,10 @@ main = Blueprint("main", __name__)
 @main.route("/")
 def index():
     return "main"
+
+
+def init_db(app):
+    db.init_app(app)
 
 
 def init_blueprint(app):
@@ -20,6 +26,8 @@ def create_app(config_name="default"):
     app.config.from_object(config[config_name])
 
     with app.app_context():
+        init_db(app)
         init_blueprint(app)
+        init_provider(app)
 
     return app
