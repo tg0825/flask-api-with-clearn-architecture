@@ -13,11 +13,8 @@ class CreateBoardUseCase(BaseUseCase):
             self,
             dto: CreateBoardDto
     ) -> Union[UseCaseSuccessOutput, UseCaseFailureOutput]:
-        # if not dto.title:
-        #     return
-
-        if not dto.user_id:
-            return UseCaseFailureOutput(NotFoundException())
+        # if not dto.user_id:
+        #     return UseCaseFailureOutput(NotFoundException())
 
         board = self.board_repo.create_board(dto=dto)
 
