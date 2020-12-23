@@ -6,7 +6,8 @@ from app.core.exceptions import InvalidRequestException
 from app.http.api import api
 from app.http.requests.board.create_board import CreateBoardRequestObject
 
-from app.core.use_cases.create_board import CreateBoardUseCase
+from app.core.use_cases.v1.board.create_board import CreateBoardUseCase
+from app.core.use_cases.v1.board.delete_board import DeleteBoardUseCase
 
 from app.core.dto.board import CreateBoardDto
 
@@ -33,5 +34,6 @@ def create_board():
 
 
 @api.route("/boards/<int:board_id>", methods=["DELETE"])
-def delete_board():
+def delete_board(board_id):
+    result =
     return "delete board"
