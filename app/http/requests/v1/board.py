@@ -1,19 +1,21 @@
 from typing import Optional, Dict
-from voluptuous import Schema, All, Length, Required, Optional as VOptional, MultipleInvalid
+from voluptuous import (
+    Schema,
+    All,
+    Length,
+    Required,
+    Optional as VOptional,
+    MultipleInvalid,
+)
 
 from app.http.requests import InvalidRequestObject
 
 
 class CreateBoardRequestObject:
-    schema = Schema({
-        Required('title'): str,
-        VOptional("body"): str,
-    })
+    schema = Schema({Required("title"): str, VOptional("body"): str,})
 
     def __init__(
-            self,
-            title: str = None,
-            body: str = None,
+        self, title: str = None, body: str = None,
     ):
         self.title: str = title
         self.body: str = body
@@ -27,7 +29,4 @@ class CreateBoardRequestObject:
             return InvalidRequestObject(errors=e.errors, params=a_dict)
 
     def to_dict(self):
-        return dict(
-            title=self.title,
-            body=self.body
-        )
+        return dict(title=self.title, body=self.body)
