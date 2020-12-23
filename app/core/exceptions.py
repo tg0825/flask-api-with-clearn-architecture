@@ -13,11 +13,17 @@ class InvalidRequestException(Exception):
 
     def to_dict(self):
         rv = dict(self.payload or ())
-        rv['detail'] = self.message
+        rv["detail"] = self.message
         return rv
 
 
 class NotFoundException(Exception):
     code = HTTPStatus.NOT_FOUND
     msg = "not_found"
+    pass
+
+
+class NoAuthorizationControlException(Exception):
+    code = HTTPStatus.FORBIDDEN
+    msg = "has_not_authorization_to_control"
     pass
