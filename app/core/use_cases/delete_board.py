@@ -18,7 +18,7 @@ class DeleteBoardUseCase(BaseUseCase):
         except NotFoundException as e:
             return UseCaseFailureOutput(e)
 
-    # 본인 글 여부 채크
+        # 본인 글 여부 채크
         if board.user_id != dto.user_id:
             # TODO :: excption 인증여부 실패
             return UseCaseFailureOutput(NoAuthorizationControlException)
