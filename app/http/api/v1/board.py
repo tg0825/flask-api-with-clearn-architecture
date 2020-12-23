@@ -4,12 +4,15 @@ from http import HTTPStatus
 from app.core.exceptions import InvalidRequestException
 
 from app.http.api import api
-from app.http.requests.board.create_board import CreateBoardRequestObject
+from app.http.requests.v1.board import (
+    CreateBoardRequestObject,
+    DeleteBoardRequestObject,
+)
 
 from app.core.use_cases.v1.board.create_board import CreateBoardUseCase
 from app.core.use_cases.v1.board.delete_board import DeleteBoardUseCase
 
-from app.core.dto.board import CreateBoardDto
+from app.core.dto.board import CreateBoardDto, DeleteBoardDto
 
 
 @api.route("/boards")
@@ -35,5 +38,14 @@ def create_board():
 
 @api.route("/boards/<int:board_id>", methods=["DELETE"])
 def delete_board(board_id):
-    result =
+    req = DeleteBoardRequestObject.from_dict(a_dict={"board_id": board_id})
+
+    if not req:
+        raise InvalidRequestException(req.get_error_msg(), HTTPStatus.BAD_REQUEST)
+
+    dto = DeleteBoardDto(**req.to_dict())
+
+    result = DeleteBoardUseCase().execute(dto)
+    if not result:
+        raise InvalidRequestException(result.type.msg, result.type.code)
     return "delete board"
