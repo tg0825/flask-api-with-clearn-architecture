@@ -11,21 +11,19 @@ from app.core.use_cases.create_board import CreateBoardUseCase
 from app.core.dto.board import CreateBoardDto
 
 
-@api.route("/board")
+@api.route("/boards")
 def get_board():
     return "get board"
 
 
-@api.route("/board", methods=["POST"])
+@api.route("/boards", methods=["POST"])
 def create_board():
     req = CreateBoardRequestObject.from_dict(a_dict=request.json)
 
     if not req:
         raise InvalidRequestException(req.get_error_msg(), HTTPStatus.BAD_REQUEST)
 
-    dto = CreateBoardDto(
-        **req.to_dict()
-    )
+    dto = CreateBoardDto(**req.to_dict())
 
     result = CreateBoardUseCase().execute(dto)
 
@@ -34,6 +32,6 @@ def create_board():
     return request.json
 
 
-@api.route("/board", methods=["DELETE"])
+@api.route("/boards/<int:board_id>", methods=["DELETE"])
 def delete_board():
     return "delete board"
