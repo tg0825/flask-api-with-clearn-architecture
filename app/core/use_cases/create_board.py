@@ -12,9 +12,9 @@ class CreateBoardUseCase(BaseUseCase):
     def execute(
             self,
             dto: CreateBoardDto
-    ) -> Union[UseCaseSuccessOutput, UseCaseFailureOutput]:
+) -> Union[UseCaseSuccessOutput, UseCaseFailureOutput]:
         # if not dto.user_id:
-        #     return UseCaseFailureOutput(NotFoundException())
+#     return UseCaseFailureOutput(NotFoundException())
 
         board = self.board_repo.create_board(dto=dto)
 
