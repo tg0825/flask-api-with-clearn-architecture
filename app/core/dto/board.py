@@ -10,4 +10,4 @@ class CreateBoardDto:
 
 @dataclass
 class DeleteBoardDto:
-    id: int = None
+    board_id: int = None
