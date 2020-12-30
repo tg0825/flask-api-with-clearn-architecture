@@ -22,5 +22,5 @@ class BoardRepository:
         session.commit()
 
     def get_board(self, dto: GetBoardDto = None) -> List[Board]:
-        board = []
-        return [d.to_entity() for d in board]
+        board = session.query(BoardModels).all()
+        return [item.to_entity() for item in board]

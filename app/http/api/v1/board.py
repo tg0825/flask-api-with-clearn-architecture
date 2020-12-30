@@ -58,5 +58,6 @@ def get_board():
     dto = GetBoardDto(**req.to_dict())
 
     result = GetBoardUseCase().execute(dto)
-
-    return "get"
+    if not result:
+        raise InvalidRequestException(result.type.msg, result.type.code)
+    return result
