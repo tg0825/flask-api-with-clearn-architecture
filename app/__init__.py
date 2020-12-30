@@ -2,7 +2,7 @@ from flask import Flask, Blueprint
 from app.config import config
 from app.http.api import api as api_bp
 from app.extensions.provider import init_provider
-from app.extensions.database import db
+from app.extensions.database import db, ma
 
 main = Blueprint("main", __name__)
 
