@@ -9,7 +9,7 @@ class GetBoardPresenter:
         schema = BoardResponseSchema()
         status_code = HTTPStatus.OK
         result = {
-            "data": {"boards": schema.dump().data},
+            "data": {"boards": schema.dump(response.value, many=True).data},
             # TODO :: 추후 처리
             # "meta": {
             #
