@@ -1,8 +1,10 @@
 from flask import Flask, Blueprint
 from app.config import config
-from app.http.api import api as api_bp
-from app.extensions.provider import init_provider
 from app.extensions.database import db, ma
+from app.extensions.provider import init_provider
+
+# 이게 위에 있으면 안됨
+from app.http.api import api as api_bp
 
 main = Blueprint("main", __name__)
 
@@ -14,6 +16,10 @@ def index():
 
 def init_db(app):
     db.init_app(app)
+
+
+def init_marshmallow(app):
+    ma.init_app(app)
 
 
 def init_blueprint(app):
@@ -29,5 +35,6 @@ def create_app(config_name="default"):
         init_db(app)
         init_blueprint(app)
         init_provider(app)
+        init_marshmallow(app)
 
     return app

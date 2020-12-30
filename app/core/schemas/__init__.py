@@ -2,4 +2,5 @@ from app import ma
 
 
 class BaseSchema(ma.Schema):
-    pass
+    class Meta:
+        pass
