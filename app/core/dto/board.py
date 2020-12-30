@@ -11,3 +11,9 @@ class CreateBoardDto:
 @dataclass
 class DeleteBoardDto:
     board_id: int = None
+
+
+@dataclass
+class GetBoardDto:
+    search_word: str = None
+    search_type: str = None

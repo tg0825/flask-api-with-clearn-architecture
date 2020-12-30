@@ -1,4 +1,6 @@
-from app.core.dto.board import CreateBoardDto, DeleteBoardDto
+from typing import List
+
+from app.core.dto.board import CreateBoardDto, DeleteBoardDto, GetBoardDto
 from app.data.sqla_models.models import BoardModels
 from app.core.domain.board import Board
 
@@ -18,3 +20,7 @@ class BoardRepository:
     def delete_board(self, dto: DeleteBoardDto = None) -> None:
         session.query(BoardModels).filter(BoardModels.id == dto.id).delete(BoardModels)
         session.commit()
+
+    def get_board(self, dto: GetBoardDto = None) -> List[Board]:
+        board = []
+        return [d.to_entity() for d in board]

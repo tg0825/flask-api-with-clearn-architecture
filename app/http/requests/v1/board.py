@@ -1,8 +1,6 @@
 from typing import Optional, Dict
 from voluptuous import (
     Schema,
-    All,
-    Length,
     Required,
     Optional as VOptional,
     MultipleInvalid,
@@ -48,3 +46,22 @@ class DeleteBoardRequestObject:
 
     def to_dict(self):
         return dict(board_id=self.board_id)
+
+
+class GetBoardRequestObject:
+    schema = Schema({VOptional("search_word"): str, VOptional("search_type"): str})
+
+    def __init__(self, search_word: str = None, search_type: str = None):
+        self.search_word: str = search_word
+        self.search_type: str = search_type
+
+    @classmethod
+    def from_dict(cls, a_dict: Optional[Dict] = {}):
+        try:
+            cls.schema(a_dict)
+            return cls(**a_dict)
+        except MultipleInvalid as e:
+            return InvalidRequestObject(errors=e.errors, params=a_dict)
+
+    def to_dict(self):
+        return dict(search_word=self.search_word, search_type=self.search_type)

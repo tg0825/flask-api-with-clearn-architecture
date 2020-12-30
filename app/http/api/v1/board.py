@@ -7,17 +7,14 @@ from app.http.api import api
 from app.http.requests.v1.board import (
     CreateBoardRequestObject,
     DeleteBoardRequestObject,
+    GetBoardRequestObject,
 )
 
 from app.core.use_cases.v1.board.create_board import CreateBoardUseCase
 from app.core.use_cases.v1.board.delete_board import DeleteBoardUseCase
+from app.core.use_cases.v1.board.get_board import GetBoardUseCase
 
-from app.core.dto.board import CreateBoardDto, DeleteBoardDto
-
-
-@api.route("/boards")
-def get_board():
-    return "get board"
+from app.core.dto.board import CreateBoardDto, DeleteBoardDto, GetBoardDto
 
 
 @api.route("/boards", methods=["POST"])
@@ -33,7 +30,7 @@ def create_board():
 
     if not result:
         raise InvalidRequestException(result.type.msg, result.type.code)
-    return request.json
+    return "done"
 
 
 @api.route("/boards/<int:board_id>", methods=["DELETE"])
@@ -49,3 +46,17 @@ def delete_board(board_id):
     if not result:
         raise InvalidRequestException(result.type.msg, result.type.code)
     return "delete board"
+
+
+@api.route("/boards", methods=["GET"])
+def get_board():
+    req = GetBoardRequestObject.from_dict(a_dict=request.args.to_dict())
+
+    if not req:
+        raise InvalidRequestException(req.get_error_msg(), HTTPStatus.BAD_REQUEST)
+
+    dto = GetBoardDto(**req.to_dict())
+
+    result = GetBoardUseCase().execute(dto)
+
+    return "get"
