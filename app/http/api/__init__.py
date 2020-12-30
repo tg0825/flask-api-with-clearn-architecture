@@ -1,8 +1,7 @@
 from flask import Blueprint, jsonify
 
 api: Blueprint = Blueprint(
-    "api",
-    __name__,
+    "api", __name__,
 )
 
 from app.http.api.v1.board import *

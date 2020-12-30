@@ -10,14 +10,10 @@ from app.core.exceptions import NotFoundException
 
 class CreateBoardUseCase(BaseUseCase):
     def execute(
-            self,
-            dto: CreateBoardDto
+        self, dto: CreateBoardDto
     ) -> Union[UseCaseSuccessOutput, UseCaseFailureOutput]:
-        # if not dto.title:
-        #     return
-
-        if not dto.user_id:
-            return UseCaseFailureOutput(NotFoundException())
+        # if not dto.user_id:
+        #     return UseCaseFailureOutput(NotFoundException())
 
         board = self.board_repo.create_board(dto=dto)
 
