@@ -15,6 +15,7 @@ from app.core.use_cases.v1.board.delete_board import DeleteBoardUseCase
 from app.core.use_cases.v1.board.get_board import GetBoardUseCase
 
 from app.core.dto.board import CreateBoardDto, DeleteBoardDto, GetBoardDto
+from app.http.response.presenters.board import GetBoardPresenter
 
 
 @api.route("/boards", methods=["POST"])
@@ -60,4 +61,4 @@ def get_board():
     result = GetBoardUseCase().execute(dto)
     if not result:
         raise InvalidRequestException(result.type.msg, result.type.code)
-    return result
+    return GetBoardPresenter().transform(result)

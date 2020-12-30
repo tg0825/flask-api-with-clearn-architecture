@@ -1,6 +1,7 @@
 from http import HTTPStatus
 from flask import jsonify
 
+from app.core.schemas.board import BoardResponseSchema
 from app.core.use_case_outputs import UseCaseSuccessOutput
 
 

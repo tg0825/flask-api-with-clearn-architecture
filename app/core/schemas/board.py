@@ -3,7 +3,7 @@ from marshmallow import fields
 from app.core.schemas import BaseSchema
 
 
-class BaordResponseSchema(BaseSchema):
+class BoardResponseSchema(BaseSchema):
     id = fields.String(required=True)
     title = fields.String(required=True)
     user_id = fields.String(required=True)
