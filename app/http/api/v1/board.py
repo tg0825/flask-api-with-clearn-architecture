@@ -25,6 +25,7 @@ from app.http.response.presenters.board import (
     GetBoardListPresenter,
     DeleteBoardPresenter,
     GetBoardPresenter,
+    CreateBoardPresenter,
 )
 
 
@@ -41,7 +42,7 @@ def create_board():
 
     if not result:
         raise InvalidRequestException(result.type.msg, result.type.code)
-    return "done"
+    return CreateBoardPresenter().transform(response=result)
 
 
 @api.route("/boards/<int:board_id>", methods=["DELETE"])
