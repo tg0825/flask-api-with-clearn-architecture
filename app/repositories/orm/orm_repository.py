@@ -32,6 +32,9 @@ class BoardRepository:
         if search_word:
             if search_type == BoardSearchTypeEnum.TITLE:
                 search_filter.append(BoardModels.title.ilike(search_word))
+
+            if search_type == BoardSearchTypeEnum.USER_ID:
+                search_filter.append(BoardModels.user_id.ilike(search_word))
         board = session.query(BoardModels).filter(*search_filter).all()
         print(board)
         return [item.to_entity() for item in board]
