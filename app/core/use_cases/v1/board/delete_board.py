@@ -14,7 +14,7 @@ class DeleteBoardUseCase(BaseUseCase):
     ) -> Union[UseCaseSuccessOutput, UseCaseFailureOutput]:
         # 글 존재 여부 채크
         try:
-            board = self.board_repo.get_board(dto.id)
+            board = self.board_repo.get_board(dto.board_id)
         except NotFoundException as e:
             return UseCaseFailureOutput(e)
 
