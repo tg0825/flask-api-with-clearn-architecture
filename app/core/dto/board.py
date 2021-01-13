@@ -18,3 +18,8 @@ class DeleteBoardDto:
 class GetBoardListDto:
     search_word: str = None
     search_type: str = None
+
+
+@dataclass
+class GetBoardDto:
+    board_id: int = None

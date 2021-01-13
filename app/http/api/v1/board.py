@@ -8,7 +8,6 @@ from app.http.requests.v1.board import (
     CreateBoardRequestObject,
     DeleteBoardRequestObject,
     GetBoardListRequestObject,
-    GetBoardRequestObject,
 )
 
 from app.core.use_cases.v1.board.create_board import CreateBoardUseCase
@@ -16,7 +15,12 @@ from app.core.use_cases.v1.board.delete_board import DeleteBoardUseCase
 from app.core.use_cases.v1.board.get_board_list import GetBoardListUseCase
 from app.core.use_cases.v1.board.get_board import GetBoardUseCase
 
-from app.core.dto.board import CreateBoardDto, DeleteBoardDto, GetBoardListDto
+from app.core.dto.board import (
+    CreateBoardDto,
+    DeleteBoardDto,
+    GetBoardListDto,
+    GetBoardDto,
+)
 from app.http.response.presenters.board import GetBoardPresenter, DeleteBoardPresenter
 
 
@@ -37,7 +41,7 @@ def create_board():
 
 
 @api.route("/boards/<int:board_id>", methods=["DELETE"])
-def delete_board(board_id):
+def delete_board(board_id: int):
     req = DeleteBoardRequestObject.from_dict(a_dict={"board_id": board_id})
 
     if not req:
@@ -60,23 +64,17 @@ def get_board_list():
 
     dto = GetBoardListDto(**req.to_dict())
 
-    result = GetBoardListUseCase().execute(dto)
+    result = GetBoardListUseCase().execute(dto=dto)
     if not result:
         raise InvalidRequestException(result.type.msg, result.type.code)
     return GetBoardPresenter().transform(result)
 
 
 @api.route("/boards/<int:board_id>", methods=["GET"])
-def get_board():
-    print(request.args)
-    req = GetBoardRequestObject.from_dict(a_dict=request.args.to_dict())
+def get_board(board_id: int):
+    dto = GetBoardDto(board_id=board_id)
 
-    if not req:
-        raise InvalidRequestException(req.get_error_msg(), HTTPStatus.BAD_REQUEST)
-
-    dto = GetBoardDto(**req.to_dict())
-
-    result = GetBoardUseCase().execute(dto)
+    result = GetBoardUseCase().execute(dto=dto)
     if not result:
         raise InvalidRequestException(result.type.msg, result.type.code)
     return GetBoardPresenter().transform(result)
