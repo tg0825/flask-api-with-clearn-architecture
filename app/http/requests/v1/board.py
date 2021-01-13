@@ -48,7 +48,7 @@ class DeleteBoardRequestObject:
         return dict(board_id=self.board_id)
 
 
-class GetBoardRequestObject:
+class GetBoardListRequestObject:
     schema = Schema({VOptional("search_word"): str, VOptional("search_type"): str})
 
     def __init__(self, search_word: str = None, search_type: str = None):
