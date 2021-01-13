@@ -13,7 +13,7 @@ class GetBoardUseCase(BaseUseCase):
         self, dto: GetBoardDto
     ) -> Union[UseCaseSuccessOutput, UseCaseFailureOutput]:
         try:
-            board = self.board_repo.get_board()
+            board = self.board_repo.get_board_list()
         except NotFoundException as e:
             return UseCaseFailureOutput(e)
 
