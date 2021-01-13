@@ -13,10 +13,7 @@ class UseCaseFailureOutput:
 
     @property
     def value(self) -> Dict:
-        return {
-            "type": self.type,
-            "message": self.message
-        }
+        return {"type": self.type, "message": self.message}
 
     def __bool__(self) -> bool:
         return False
