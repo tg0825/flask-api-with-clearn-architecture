@@ -16,7 +16,7 @@ from app.core.use_cases.v1.board.delete_board import DeleteBoardUseCase
 from app.core.use_cases.v1.board.get_board_list import GetBoardListUseCase
 from app.core.use_cases.v1.board.get_board import GetBoardUseCase
 
-from app.core.dto.board import CreateBoardDto, DeleteBoardDto, GetBoardDto
+from app.core.dto.board import CreateBoardDto, DeleteBoardDto, GetBoardListDto
 from app.http.response.presenters.board import GetBoardPresenter, DeleteBoardPresenter
 
 
@@ -58,7 +58,7 @@ def get_board_list():
     if not req:
         raise InvalidRequestException(req.get_error_msg(), HTTPStatus.BAD_REQUEST)
 
-    dto = GetBoardDto(**req.to_dict())
+    dto = GetBoardListDto(**req.to_dict())
 
     result = GetBoardListUseCase().execute(dto)
     if not result:

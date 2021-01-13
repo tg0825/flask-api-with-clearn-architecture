@@ -1,6 +1,6 @@
 from typing import Union
 
-from app.core.dto.board import GetBoardDto
+from app.core.dto.board import GetBoardListDto
 from app.core.use_cases.base import BaseUseCase
 
 from app.core.use_case_outputs import UseCaseSuccessOutput, UseCaseFailureOutput
@@ -10,7 +10,7 @@ from app.core.exceptions import NotFoundException, NoAuthorizationControlExcepti
 
 class GetBoardListUseCase(BaseUseCase):
     def execute(
-        self, dto: GetBoardDto
+        self, dto: GetBoardListDto
     ) -> Union[UseCaseSuccessOutput, UseCaseFailureOutput]:
         try:
             board = self.board_repo.get_board_list()

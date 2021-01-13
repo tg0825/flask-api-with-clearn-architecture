@@ -15,6 +15,6 @@ class DeleteBoardDto:
 
 
 @dataclass
-class GetBoardDto:
+class GetBoardListDto:
     search_word: str = None
     search_type: str = None
