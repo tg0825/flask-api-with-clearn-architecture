@@ -8,7 +8,7 @@ from app.core.use_case_outputs import UseCaseSuccessOutput, UseCaseFailureOutput
 from app.core.exceptions import NotFoundException, NoAuthorizationControlException
 
 
-class GetBoardUseCase(BaseUseCase):
+class GetBoardListUseCase(BaseUseCase):
     def execute(
         self, dto: GetBoardDto
     ) -> Union[UseCaseSuccessOutput, UseCaseFailureOutput]:
