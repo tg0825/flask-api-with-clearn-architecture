@@ -5,6 +5,7 @@ from app.data.sqla_models.models import BoardModels
 from app.core.domain.board import Board
 
 from app.extensions.database import session
+from app.core.exceptions import NotFoundException
 
 from sqlalchemy.orm import aliased
 
@@ -30,4 +31,7 @@ class BoardRepository:
     def get_board(self, board_id: int = None) -> Board:
         bm = aliased(BoardModels)
         board = session.query(bm).filter(bm.id == board_id).first()
+
+        if not board:
+            raise NotFoundException()
         return board.to_entity()
