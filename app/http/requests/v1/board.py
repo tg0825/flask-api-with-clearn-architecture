@@ -58,7 +58,9 @@ class GetBoardRequestObject:
     @classmethod
     def from_dict(cls, a_dict: Optional[Dict] = {}):
         try:
+            # 유효성 검사 이상 있을 경우 raise
             cls.schema(a_dict)
+            # 유효성 검사 이상 없을 시 인스턴스 생성
             return cls(**a_dict)
         except MultipleInvalid as e:
             return InvalidRequestObject(errors=e.errors, params=a_dict)
