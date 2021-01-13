@@ -1,7 +1,8 @@
-from typing import Union
+from typing import Union, List
 
 from app.core.dto.board import GetBoardListDto
 from app.core.use_cases.base import BaseUseCase
+from app.core.domain.board import Board
 
 from app.core.use_case_outputs import UseCaseSuccessOutput, UseCaseFailureOutput
 
@@ -13,8 +14,12 @@ class GetBoardListUseCase(BaseUseCase):
         self, dto: GetBoardListDto
     ) -> Union[UseCaseSuccessOutput, UseCaseFailureOutput]:
         try:
-            board = self.board_repo.get_board_list()
+            boards: List[Board] = self.board_repo.get_board_list(
+                search_type=dto.search_type, search_word=dto.search_word
+            )
         except NotFoundException as e:
             return UseCaseFailureOutput(e)
 
-        return UseCaseSuccessOutput(value=board)
+        return UseCaseSuccessOutput(
+            value=boards, meta={"previous": "", "current": "", "count": len(boards)}
+        )

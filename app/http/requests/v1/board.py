@@ -51,7 +51,7 @@ class DeleteBoardRequestObject:
 class GetBoardListRequestObject:
     schema = Schema({VOptional("search_word"): str, VOptional("search_type"): str})
 
-    def __init__(self, search_word: str = None, search_type: str = None):
+    def __init__(self, search_word: str = None, search_type: str = None) -> None:
         self.search_word: str = search_word
         self.search_type: str = search_type
 

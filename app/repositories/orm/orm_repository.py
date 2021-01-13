@@ -1,6 +1,7 @@
 from typing import List
 
 from app.core.dto.board import CreateBoardDto, DeleteBoardDto, GetBoardListDto
+from app.core.enum import BoardSearchTypeEnum
 from app.data.sqla_models.models import BoardModels
 from app.core.domain.board import Board
 
@@ -24,8 +25,15 @@ class BoardRepository:
         session.query(BoardModels).filter(BoardModels.id == dto.board_id).delete()
         session.commit()
 
-    def get_board_list(self, dto: GetBoardListDto = None) -> List[Board]:
-        board = session.query(BoardModels).all()
+    def get_board_list(
+        self, search_type: str = None, search_word: str = None
+    ) -> List[Board]:
+        search_filter = []
+        if search_word:
+            if search_type == BoardSearchTypeEnum.TITLE:
+                search_filter.append(BoardModels.title.ilike(search_word))
+        board = session.query(BoardModels).filter(*search_filter).all()
+        print(board)
         return [item.to_entity() for item in board]
 
     def get_board(self, board_id: int = None) -> Board:

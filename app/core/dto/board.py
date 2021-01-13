@@ -16,8 +16,9 @@ class DeleteBoardDto:
 
 @dataclass
 class GetBoardListDto:
-    search_word: str = None
+    # 검색 종류: 제목, 내용, 유저 아이디
     search_type: str = None
+    search_word: str = None
 
 
 @dataclass
