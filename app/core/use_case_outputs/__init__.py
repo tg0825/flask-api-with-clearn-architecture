@@ -15,6 +15,7 @@ class UseCaseFailureOutput:
     def value(self) -> Dict:
         return {"type": self.type, "message": self.message}
 
+    # view 레이어에서 if 조건에서 false를 유도한다.
     def __bool__(self) -> bool:
         return False
 
