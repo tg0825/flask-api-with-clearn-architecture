@@ -14,3 +14,10 @@ class GetBoardPresenter:
             "meta": {},
         }
         return jsonify(**result), status_code
+
+
+class DeleteBoardPresenter:
+    def transform(self) -> jsonify:
+        status_code = HTTPStatus.OK
+        result = {"data": {"status": True}}
+        return jsonify(**result), status_code
