@@ -67,3 +67,24 @@ class GetBoardListRequestObject:
 
     def to_dict(self):
         return dict(search_word=self.search_word, search_type=self.search_type)
+
+
+class GetBoardRequestObject:
+    schema = Schema({VOptional("search_word"): str, VOptional("search_type"): str})
+
+    def __init__(self, search_word: str = None, search_type: str = None):
+        self.search_word: str = search_word
+        self.search_type: str = search_type
+
+    @classmethod
+    def from_dict(cls, a_dict: Optional[Dict] = {}):
+        try:
+            # 유효성 검사 이상 있을 경우 raise
+            cls.schema(a_dict)
+            # 유효성 검사 이상 없을 시 인스턴스 생성
+            return cls(**a_dict)
+        except MultipleInvalid as e:
+            return InvalidRequestObject(errors=e.errors, params=a_dict)
+
+    def to_dict(self):
+        return dict(search_word=self.search_word, search_type=self.search_type)
