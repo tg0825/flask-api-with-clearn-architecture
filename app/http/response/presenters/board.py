@@ -16,6 +16,16 @@ class GetBoardListPresenter:
         return jsonify(**result), status_code
 
 
+class GetBoardPresenter:
+    def transform(self, response: UseCaseSuccessOutput) -> jsonify:
+        schema = BoardResponseSchema()
+        status_code = HTTPStatus.OK
+        result = {
+            "data": {"boards": schema.dump(response.value)},
+        }
+        return jsonify(**result), status_code
+
+
 class DeleteBoardPresenter:
     def transform(self) -> jsonify:
         status_code = HTTPStatus.OK

@@ -24,6 +24,7 @@ from app.core.dto.board import (
 from app.http.response.presenters.board import (
     GetBoardListPresenter,
     DeleteBoardPresenter,
+    GetBoardPresenter,
 )
 
 
@@ -80,4 +81,4 @@ def get_board(board_id: int):
     result = GetBoardUseCase().execute(dto=dto)
     if not result:
         raise InvalidRequestException(result.type.msg, result.type.code)
-    return GetBoardListPresenter().transform(result)
+    return GetBoardPresenter().transform(result)
