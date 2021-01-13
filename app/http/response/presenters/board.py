@@ -5,7 +5,7 @@ from app.core.schemas.board import BoardResponseSchema
 from app.core.use_case_outputs import UseCaseSuccessOutput
 
 
-class GetBoardPresenter:
+class GetBoardListPresenter:
     def transform(self, response: UseCaseSuccessOutput) -> jsonify:
         schema = BoardResponseSchema()
         status_code = HTTPStatus.OK

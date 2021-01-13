@@ -21,7 +21,10 @@ from app.core.dto.board import (
     GetBoardListDto,
     GetBoardDto,
 )
-from app.http.response.presenters.board import GetBoardPresenter, DeleteBoardPresenter
+from app.http.response.presenters.board import (
+    GetBoardListPresenter,
+    DeleteBoardPresenter,
+)
 
 
 @api.route("/boards", methods=["POST"])
@@ -67,7 +70,7 @@ def get_board_list():
     result = GetBoardListUseCase().execute(dto=dto)
     if not result:
         raise InvalidRequestException(result.type.msg, result.type.code)
-    return GetBoardPresenter().transform(result)
+    return GetBoardListPresenter().transform(result)
 
 
 @api.route("/boards/<int:board_id>", methods=["GET"])
@@ -77,4 +80,4 @@ def get_board(board_id: int):
     result = GetBoardUseCase().execute(dto=dto)
     if not result:
         raise InvalidRequestException(result.type.msg, result.type.code)
-    return GetBoardPresenter().transform(result)
+    return GetBoardListPresenter().transform(result)
