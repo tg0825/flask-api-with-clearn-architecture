@@ -14,12 +14,10 @@ class GetBoardListUseCase(BaseUseCase):
         self, dto: GetBoardListDto
     ) -> Union[UseCaseSuccessOutput, UseCaseFailureOutput]:
         try:
-            boards: List[Board] = self.board_repo.get_board_list(
-                search_type=dto.search_type, search_word=dto.search_word
+            boards: List = self.board_repo.get_board_list(
+                search_type=dto.search_type, search_word=dto.search_word, page=dto.page
             )
         except NotFoundException as e:
             return UseCaseFailureOutput(e)
 
-        return UseCaseSuccessOutput(
-            value=boards, meta={"previous": "", "current": "", "count": len(boards)}
-        )
+        return UseCaseSuccessOutput(value=boards[0], meta=boards[1])

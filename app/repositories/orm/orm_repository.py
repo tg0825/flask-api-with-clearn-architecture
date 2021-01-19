@@ -1,7 +1,7 @@
 from typing import List
 
 from app.core.dto.board import CreateBoardDto, DeleteBoardDto, GetBoardListDto
-from app.core.enum import BoardSearchTypeEnum
+from app.core.enum import BoardSearchTypeEnum, BoardPaginationEnum
 from app.data.sqla_models.models import BoardModels
 from app.core.domain.board import Board
 
@@ -9,6 +9,8 @@ from app.extensions.database import session
 from app.core.exceptions import NotFoundException
 
 from sqlalchemy.orm import aliased
+
+from app.extensions.utils.cursor.cursor import Paginate
 
 
 class BoardRepository:
@@ -26,8 +28,8 @@ class BoardRepository:
         session.commit()
 
     def get_board_list(
-        self, search_type: str = None, search_word: str = None
-    ) -> List[Board]:
+        self, search_type: str = None, search_word: str = None, page: int = None
+    ) -> List:
         search_filter = []
         if search_word:
             if search_type == BoardSearchTypeEnum.TITLE:
@@ -35,9 +37,21 @@ class BoardRepository:
 
             if search_type == BoardSearchTypeEnum.USER_ID:
                 search_filter.append(BoardModels.user_id.ilike(search_word))
-        board = session.query(BoardModels).filter(*search_filter).all()
-        print(board)
-        return [item.to_entity() for item in board]
+        board_pagination = (
+            session.query(BoardModels)
+            .filter(*search_filter)
+            .paginate(page=page, per_page=BoardPaginationEnum.BOARD_PAGE)
+        )
+        return [
+            [item.to_entity() for item in board_pagination.items],
+            Paginate(
+                total=board_pagination.total,
+                count=len(board_pagination.items),
+                per_page=board_pagination.per_page,
+                current_page=board_pagination.page,
+                total_pages=board_pagination.pages,
+            ),
+        ]
 
     def get_board(self, board_id: int = None) -> Board:
         bm = aliased(BoardModels)

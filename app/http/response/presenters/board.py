@@ -19,7 +19,7 @@ class GetBoardListPresenter:
         status_code = HTTPStatus.OK
         result = {
             "data": {"boards": schema.dump(response.value, many=True)},
-            "meta": {},
+            "meta": response.meta,
         }
         return jsonify(**result), status_code
 

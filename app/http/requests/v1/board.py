@@ -49,11 +49,20 @@ class DeleteBoardRequestObject:
 
 
 class GetBoardListRequestObject:
-    schema = Schema({VOptional("search_word"): str, VOptional("search_type"): str})
+    schema = Schema(
+        {
+            VOptional("search_word"): str,
+            VOptional("search_type"): str,
+            VOptional("page"): str,
+        }
+    )
 
-    def __init__(self, search_word: str = None, search_type: str = None) -> None:
+    def __init__(
+        self, search_word: str = None, search_type: str = None, page: str = None
+    ) -> None:
         self.search_word: str = search_word
         self.search_type: str = search_type
+        self.page: str = page
 
     @classmethod
     def from_dict(cls, a_dict: Optional[Dict] = {}):
@@ -66,4 +75,8 @@ class GetBoardListRequestObject:
             return InvalidRequestObject(errors=e.errors, params=a_dict)
 
     def to_dict(self):
-        return dict(search_word=self.search_word, search_type=self.search_type)
+        return dict(
+            search_word=self.search_word,
+            search_type=self.search_type,
+            page=int(self.page) if self.page is not None else self.page,
+        )
