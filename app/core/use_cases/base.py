@@ -1,4 +1,4 @@
-from app.repositories import BoardRepository
+from app.repositories import BoardRepository, UserRepository
 
 import inject
 
