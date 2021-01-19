@@ -1,7 +1,6 @@
 from app.extensions.database import db
 from app.core.domain.board import Board
-
-# from app.core.domain.user import User
+from app.core.domain.user import User
 
 
 class BoardModels(db.Model):
@@ -31,5 +30,4 @@ class UserModels(db.Model):
     password = db.Column(db.Text(), nullable=False)
 
     def to_entity(self):
-        pass
-        # return User(id=self.id, username=self.username, password=self.password)
+        return User(id=self.id, username=self.username, password=self.password)
