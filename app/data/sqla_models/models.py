@@ -1,6 +1,7 @@
-from app.core.domain.User import User
 from app.extensions.database import db
 from app.core.domain.board import Board
+
+# from app.core.domain.user import User
 
 
 class BoardModels(db.Model):
@@ -26,8 +27,9 @@ class UserModels(db.Model):
     __tablename__ = "user"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(50), Unique=True, nullable=False)
+    username = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.Text(), nullable=False)
 
     def to_entity(self):
-        return User(id=self.id, username=self.username, password=self.password)
+        pass
+        # return User(id=self.id, username=self.username, password=self.password)
