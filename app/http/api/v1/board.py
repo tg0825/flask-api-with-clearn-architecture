@@ -29,7 +29,7 @@ from app.http.response.presenters.board import (
 )
 
 
-@api.route("/boards", methods=["POST"])
+@api.route("/v1/boards", methods=["POST"])
 def create_board():
     req = CreateBoardRequestObject.from_dict(a_dict=request.json)
 
@@ -45,7 +45,7 @@ def create_board():
     return CreateBoardPresenter().transform(response=result)
 
 
-@api.route("/boards/<int:board_id>", methods=["DELETE"])
+@api.route("/v1/boards/<int:board_id>", methods=["DELETE"])
 def delete_board(board_id: int):
     req = DeleteBoardRequestObject.from_dict(a_dict={"board_id": board_id})
 
@@ -60,7 +60,7 @@ def delete_board(board_id: int):
     return DeleteBoardPresenter().transform()
 
 
-@api.route("/boards", methods=["GET"])
+@api.route("/v1/boards", methods=["GET"])
 def get_board_list():
     req = GetBoardListRequestObject.from_dict(a_dict=request.args.to_dict())
 
@@ -75,7 +75,7 @@ def get_board_list():
     return GetBoardListPresenter().transform(result)
 
 
-@api.route("/boards/<int:board_id>", methods=["GET"])
+@api.route("/v1/boards/<int:board_id>", methods=["GET"])
 def get_board(board_id: int):
     dto = GetBoardDto(board_id=board_id)
 

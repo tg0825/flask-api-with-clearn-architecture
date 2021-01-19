@@ -60,3 +60,8 @@ class BoardRepository:
         if not board:
             raise NotFoundException()
         return board.to_entity()
+
+
+class UserRepository:
+    def create_user(self):
+        pass
