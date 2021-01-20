@@ -9,6 +9,7 @@ from app.extensions.database import session
 from app.core.exceptions import NotFoundException
 
 from sqlalchemy.orm import aliased
+from flask_bcrypt import generate_password_hash
 
 from app.extensions.utils.cursor.cursor import Paginate
 
@@ -64,7 +65,8 @@ class BoardRepository:
 
 class UserRepository:
     def create_user(self, username: str = None, password: str = None) -> UserModels:
-        user = UserModels(username=username, password=password)
+        hash = generate_password_hash(password).decode("utf-8")
+        user = UserModels(username=username, password=hash)
         session.add(user)
         session.commit()
         return user

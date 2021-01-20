@@ -3,6 +3,8 @@ from app.config import config
 from app.extensions.database import db, ma
 from app.extensions.provider import init_provider
 
+from flask_bcrypt import Bcrypt
+
 # 이게 위에 있으면 안됨
 from app.http.api import api as api_bp
 
@@ -30,6 +32,9 @@ def init_blueprint(app):
 def create_app(config_name="default"):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
+
+    app.secret_key = "!!!!!!"
+    bcrypt = Bcrypt(app)
 
     with app.app_context():
         init_db(app)
