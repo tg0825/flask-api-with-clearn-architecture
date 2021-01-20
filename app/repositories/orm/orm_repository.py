@@ -2,7 +2,7 @@ from typing import List
 
 from app.core.dto.board import CreateBoardDto, DeleteBoardDto, GetBoardListDto
 from app.core.enum import BoardSearchTypeEnum, BoardPaginationEnum
-from app.data.sqla_models.models import BoardModels
+from app.data.sqla_models.models import BoardModels, UserModels
 from app.core.domain.board import Board
 
 from app.extensions.database import session
@@ -63,5 +63,8 @@ class BoardRepository:
 
 
 class UserRepository:
-    def create_user(self):
-        pass
+    def create_user(self, username: str = None, password: str = None) -> UserModels:
+        user = UserModels(username=username, password=password)
+        session.add(user)
+        session.commit()
+        return user

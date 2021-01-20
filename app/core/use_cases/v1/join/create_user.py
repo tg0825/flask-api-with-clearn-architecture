@@ -12,9 +12,11 @@ class CreateUserUseCase(BaseUseCase):
     def execute(
         self, dto: CreateUserDto
     ) -> Union[UseCaseSuccessOutput, UseCaseFailureOutput]:
-        if not dto.user_id:
-            return UseCaseFailureOutput(NotFoundException())
+        # if not dto.user_id:
+        #     return UseCaseFailureOutput(NotFoundException())
 
-        board = self.user_repo.create_user(dto=dto)
+        result = self.user_repo.create_user(
+            username=dto.username, password=dto.password
+        )
 
-        return UseCaseSuccessOutput(value=board)
+        return UseCaseSuccessOutput(value=result)
