@@ -1,10 +1,7 @@
-from ctypes import Union
-
 from flask import request
 from http import HTTPStatus
 
 from app.core.dto.join import CreateUserDto
-from app.core.use_case_outputs import UseCaseSuccessOutput, UseCaseFailureOutput
 from app.core.use_cases.v1.join.create_user import CreateUserUseCase
 from app.http.api import api, InvalidRequestException
 from app.http.requests.v1.join import CreateUserRequestObject

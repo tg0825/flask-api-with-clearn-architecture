@@ -69,4 +69,10 @@ class UserRepository:
         user = UserModels(username=username, password=hash)
         session.add(user)
         session.commit()
-        return user
+        return user.to_entity()
+
+    def get_user(self, username: str = None) -> UserModels:
+        user = session.query(UserModels).filter_by(username=username).first()
+        if not user:
+            raise NotFoundException()
+        return user.to_entity()

@@ -6,6 +6,7 @@ api: Blueprint = Blueprint(
 
 from app.http.api.v1.board import *
 from app.http.api.v1.join import *
+from app.http.api.v1.auth import *
 
 
 @api.errorhandler(InvalidRequestException)
