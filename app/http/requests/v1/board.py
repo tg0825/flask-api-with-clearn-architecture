@@ -31,10 +31,11 @@ class CreateBoardRequestObject:
 
 
 class DeleteBoardRequestObject:
-    schema = Schema({Required("board_id"): int})
+    schema = Schema({Required("board_id"): int, Required("user_id"): int})
 
-    def __init__(self, board_id: int = None):
+    def __init__(self, board_id: int = None, user_id: int = None):
         self.board_id: int = board_id
+        self.user_id: int = user_id
 
     @classmethod
     def from_dict(cls, a_dict: Optional[Dict[str, int]]):
@@ -45,7 +46,7 @@ class DeleteBoardRequestObject:
             return InvalidRequestObject(errors=e.errors, params=a_dict)
 
     def to_dict(self):
-        return dict(board_id=self.board_id)
+        return dict(board_id=self.board_id, user_id=self.user_id)
 
 
 class GetBoardListRequestObject:

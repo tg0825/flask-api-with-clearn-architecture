@@ -1,6 +1,8 @@
 from flask import request
 from http import HTTPStatus
 
+from flask_jwt_extended import jwt_required, get_jwt_identity
+
 from app.core.exceptions import InvalidRequestException
 
 from app.http.api import api
@@ -46,8 +48,12 @@ def create_board():
 
 
 @api.route("/v1/boards/<int:board_id>", methods=["DELETE"])
+@jwt_required
 def delete_board(board_id: int):
-    req = DeleteBoardRequestObject.from_dict(a_dict={"board_id": board_id})
+    user_id = get_jwt_identity()
+    req = DeleteBoardRequestObject.from_dict(
+        a_dict={"board_id": board_id, "user_id": int(user_id)}
+    )
 
     if not req:
         raise InvalidRequestException(req.get_error_msg(), HTTPStatus.BAD_REQUEST)

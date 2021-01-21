@@ -4,6 +4,7 @@ from app.extensions.database import db, ma
 from app.extensions.provider import init_provider
 
 from flask_bcrypt import Bcrypt
+from flask_jwt_extended import JWTManager
 
 # 이게 위에 있으면 안됨
 from app.http.api import api as api_bp
@@ -35,6 +36,7 @@ def create_app(config_name="default"):
 
     app.secret_key = "!!!!!!"
     bcrypt = Bcrypt(app)
+    jwt = JWTManager(app)
 
     with app.app_context():
         init_db(app)
