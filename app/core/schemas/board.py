@@ -9,3 +9,5 @@ class BoardResponseSchema(BaseSchema):
     user_id = fields.String(required=True)
     is_deleted = fields.Boolean(required=True)
     body = fields.String(required=True)
+    created_at = fields.String(required=True)
+    updated_at = fields.String(required=True)
