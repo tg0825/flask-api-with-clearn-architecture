@@ -4,12 +4,14 @@ from http import HTTPStatus
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from app.core.exceptions import InvalidRequestException
+from app.core.use_cases.v1.board.edit_board import EditBoardUseCase
 
 from app.http.api import api
 from app.http.requests.v1.board import (
     CreateBoardRequestObject,
     DeleteBoardRequestObject,
     GetBoardListRequestObject,
+    EditBoardRequestObject,
 )
 
 from app.core.use_cases.v1.board.create_board import CreateBoardUseCase
@@ -22,12 +24,14 @@ from app.core.dto.board import (
     DeleteBoardDto,
     GetBoardListDto,
     GetBoardDto,
+    EditBoardDto,
 )
 from app.http.response.presenters.board import (
     GetBoardListPresenter,
     DeleteBoardPresenter,
     GetBoardPresenter,
     CreateBoardPresenter,
+    EditBoardPresenter,
 )
 
 
@@ -49,6 +53,26 @@ def create_board():
     if not result:
         raise InvalidRequestException(result.type.msg, result.type.code)
     return CreateBoardPresenter().transform(response=result)
+
+
+@api.route("/v1/boards/<int:board_id>", methods=["PATCH"])
+@jwt_required
+def edit_board(board_id: int):
+    user_id = get_jwt_identity()
+    req = EditBoardRequestObject.from_dict(
+        a_dict={"user_id": int(user_id), "board_id": board_id, **request.json}
+    )
+
+    if not req:
+        raise InvalidRequestException(req.get_error_msg(), HTTPStatus.BAD_REQUEST)
+
+    dto = EditBoardDto(**req.to_dict())
+
+    result = EditBoardUseCase().execute(dto)
+
+    if not result:
+        raise InvalidRequestException(result.type.msg, result.type.code)
+    return EditBoardPresenter().transform(response=result)
 
 
 @api.route("/v1/boards/<int:board_id>", methods=["DELETE"])

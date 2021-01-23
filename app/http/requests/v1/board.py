@@ -31,6 +31,45 @@ class CreateBoardRequestObject:
         return dict(title=self.title, body=self.body, user_id=self.user_id)
 
 
+class EditBoardRequestObject:
+    schema = Schema(
+        {
+            Required("board_id"): int,
+            Required("title"): str,
+            Required("user_id"): int,
+            VOptional("body"): str,
+        }
+    )
+
+    def __init__(
+        self,
+        board_id: int = None,
+        title: str = None,
+        body: str = None,
+        user_id: int = None,
+    ):
+        self.board_id: int = board_id
+        self.title: str = title
+        self.body: str = body
+        self.user_id: int = user_id
+
+    @classmethod
+    def from_dict(cls, a_dict: Optional[Dict]):
+        try:
+            cls.schema(a_dict)
+            return cls(**a_dict)
+        except MultipleInvalid as e:
+            return InvalidRequestObject(errors=e.errors, params=a_dict)
+
+    def to_dict(self):
+        return dict(
+            board_id=self.board_id,
+            title=self.title,
+            body=self.body,
+            user_id=self.user_id,
+        )
+
+
 class DeleteBoardRequestObject:
     schema = Schema({Required("board_id"): int, Required("user_id"): int})
 

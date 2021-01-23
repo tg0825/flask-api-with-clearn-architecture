@@ -1,6 +1,11 @@
 from typing import List
 
-from app.core.dto.board import CreateBoardDto, DeleteBoardDto, GetBoardListDto
+from app.core.dto.board import (
+    CreateBoardDto,
+    DeleteBoardDto,
+    EditBoardDto,
+    GetBoardListDto,
+)
 from app.core.enum import BoardSearchTypeEnum, BoardPaginationEnum
 from app.data.sqla_models.models import BoardModels, UserModels
 from app.core.domain.board import Board
@@ -22,6 +27,16 @@ class BoardRepository:
 
         session.add(board)
         session.commit()
+        return board.to_entity()
+
+    def edit_board(self, dto: EditBoardDto = None) -> Board:
+        board = (
+            session.query(BoardModels).filter(BoardModels.id == dto.board_id).first()
+        )
+        board.title = dto.title or board.title
+        board.body = dto.body or board.body
+        session.commit()
+
         return board.to_entity()
 
     def delete_board(self, dto: DeleteBoardDto = None) -> None:

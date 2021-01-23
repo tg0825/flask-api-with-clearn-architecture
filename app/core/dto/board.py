@@ -9,6 +9,14 @@ class CreateBoardDto:
 
 
 @dataclass
+class EditBoardDto:
+    board_id: int = None
+    user_id: int = None
+    title: str = None
+    body: str = None
+
+
+@dataclass
 class DeleteBoardDto:
     board_id: int = None
     user_id: int = None
