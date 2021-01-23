@@ -1,5 +1,6 @@
 from typing import List
 
+from app import bcrypt
 from app.core.dto.board import (
     CreateBoardDto,
     DeleteBoardDto,
@@ -11,12 +12,10 @@ from app.data.sqla_models.models import BoardModels, UserModels
 from app.core.domain.board import Board
 
 from app.extensions.database import session
+from app.extensions.utils.cursor.cursor import Paginate
 from app.core.exceptions import NotFoundException
 
 from sqlalchemy.orm import aliased
-from flask_bcrypt import generate_password_hash
-
-from app.extensions.utils.cursor.cursor import Paginate
 
 
 class BoardRepository:
@@ -80,7 +79,7 @@ class BoardRepository:
 
 class UserRepository:
     def create_user(self, username: str = None, password: str = None) -> UserModels:
-        hash = generate_password_hash(password).decode("utf-8")
+        hash = bcrypt.generate_password_hash(password).decode("utf-8")
         user = UserModels(username=username, password=hash)
         session.add(user)
         session.commit()

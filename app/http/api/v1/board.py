@@ -1,6 +1,5 @@
 from flask import request
 from http import HTTPStatus
-
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from app.core.exceptions import InvalidRequestException

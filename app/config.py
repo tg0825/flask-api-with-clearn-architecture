@@ -14,5 +14,7 @@ class LocalConfig:
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    JWT_SECRET_KEY = "qwert1234"
+
 
 config = {"default": LocalConfig}
