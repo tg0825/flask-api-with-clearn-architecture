@@ -32,8 +32,12 @@ from app.http.response.presenters.board import (
 
 
 @api.route("/v1/boards", methods=["POST"])
+@jwt_required
 def create_board():
-    req = CreateBoardRequestObject.from_dict(a_dict=request.json)
+    user_id = get_jwt_identity()
+    req = CreateBoardRequestObject.from_dict(
+        a_dict={"user_id": int(user_id), **request.json}
+    )
 
     if not req:
         raise InvalidRequestException(req.get_error_msg(), HTTPStatus.BAD_REQUEST)

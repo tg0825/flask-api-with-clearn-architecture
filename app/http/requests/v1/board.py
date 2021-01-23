@@ -10,13 +10,14 @@ from app.http.requests import InvalidRequestObject
 
 
 class CreateBoardRequestObject:
-    schema = Schema({Required("title"): str, VOptional("body"): str,})
+    schema = Schema(
+        {Required("title"): str, Required("user_id"): int, VOptional("body"): str,}
+    )
 
-    def __init__(
-        self, title: str = None, body: str = None,
-    ):
+    def __init__(self, title: str = None, body: str = None, user_id: int = None):
         self.title: str = title
         self.body: str = body
+        self.user_id: int = user_id
 
     @classmethod
     def from_dict(cls, a_dict: Optional[Dict]):
@@ -27,7 +28,7 @@ class CreateBoardRequestObject:
             return InvalidRequestObject(errors=e.errors, params=a_dict)
 
     def to_dict(self):
-        return dict(title=self.title, body=self.body)
+        return dict(title=self.title, body=self.body, user_id=self.user_id)
 
 
 class DeleteBoardRequestObject:
